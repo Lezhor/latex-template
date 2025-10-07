@@ -17,9 +17,10 @@
 *.xdv
 *-converted-to.*
 # these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-# *.pdf
+*.ps
+*.eps
+*.pdf
+
 
 ## Generated if empty string is given at "Please type another file name for output:"
 .pdf
@@ -36,8 +37,10 @@
 
 ## Build tool auxiliary files:
 *.fdb_latexmk
+latexmkrc
 *.synctex
 *.synctex(busy)
+*.gz(busy)
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
@@ -324,3 +327,22 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
+
+*.tmp
+
+# OS Specific
+.DS_Store
+Thumbs.db
+desktop.ini
+*Zone.Identifier
+
+# Overleaf
+.overleaf
+
+# Output
+output/
+build/
+
+# IDE specific
+.vscode/
+.idea/
