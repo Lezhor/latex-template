@@ -39,7 +39,7 @@ jobs:
           REPO_NAME: ${{ env.REPO_NAME }}
         run: |
           CONTENT=$(jq -n --arg repo "$REPO_NAME" --arg wdir "$WORKDIR" --arg author "$COMMIT_AUTHOR" --arg msg "$COMMIT_MESSAGE" \
-            '{content: "# 📘 **\($repo)**\n✔ New LaTeX PDF Build from **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
+            '{content: "# 📘 **\($repo)** - **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
           curl -F "payload_json=${CONTENT}" \
                -F "file=@${WORKDIR}/main.pdf" \
                "$DISCORD_WEBHOOK"
