@@ -7,6 +7,7 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
     env:
+      # Set the root directory of your latex project here:
       WORKDIR: ./template_thesis
 
     steps:
@@ -32,7 +33,7 @@ jobs:
           COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
           COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
         run: |
-          CONTENT="📘 New thesis PDF built from **${WORKDIR}**\n🧾 Commit: ${COMMIT_MESSAGE}\n👤 Author: ${COMMIT_AUTHOR}"
+          CONTENT="📘 New LaTeX PDF Build from **${WORKDIR}**\n🧾 Last Commit by *${COMMIT_AUTHOR}*: ```${COMMIT_MESSAGE}```"
           curl -F "payload_json={\"content\": \"${CONTENT}\"}" \
                -F "file=@${WORKDIR}/main.pdf" \
                "$DISCORD_WEBHOOK"
