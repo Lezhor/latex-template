@@ -33,8 +33,8 @@ jobs:
           COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
           COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
         run: |
-          CONTENT="📘 New LaTeX PDF Build from **${WORKDIR}**\n🧾 Last Commit by *${COMMIT_AUTHOR}*: ```${COMMIT_MESSAGE}```"
-          curl -F "payload_json={\"content\": \"${CONTENT}\"}" \
-               -F "file=@${WORKDIR}/main.pdf" \
-               "$DISCORD_WEBHOOK"
-
+          CONTENT=$(jq -n --arg wdir "$WORKDIR" --arg author "$COMMIT_AUTHOR" --arg msg "$COMMIT_MESSAGE" \
+            '{content: "📘 New LaTeX PDF Build from **\($wdir)**\n🧾 Last Commit by *\($author)*:\n```\n\($msg)\n```"}')
+          curl -F "payload_json=${CONTENT}" \
+              -F "file=@${WORKDIR}/main.pdf" \
+              "$DISCORD_WEBHOOK"
