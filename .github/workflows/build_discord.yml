@@ -1,4 +1,4 @@
-name: Build LaTeX and Upload to Discord
+name: Build LaTeX document and send to Discord
 
 on:
   workflow_dispatch:
@@ -6,21 +6,34 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+    env:
+      WORKDIR: ./template_thesis
 
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
+      - name: Get commit info
+        id: commit
+        run: |
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+          echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v4
         with:
           root_file: main.tex
-          working_directory: ./template_thesis
+          working_directory: ${{ env.WORKDIR }}
 
       - name: Send PDF to Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          WORKDIR: ${{ env.WORKDIR }}
+          COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
+          COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
         run: |
-          curl -F "payload_json={\"content\": \"📘 New thesis PDF build from GitHub Actions!\"}" \
-               -F "file=@./template_thesis/main.pdf" \
+          CONTENT="📘 New thesis PDF built from **${WORKDIR}**\n🧾 Commit: ${COMMIT_MESSAGE}\n👤 Author: ${COMMIT_AUTHOR}"
+          curl -F "payload_json={\"content\": \"${CONTENT}\"}" \
+               -F "file=@${WORKDIR}/main.pdf" \
                "$DISCORD_WEBHOOK"
+
