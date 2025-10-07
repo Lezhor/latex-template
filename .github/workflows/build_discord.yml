@@ -1,4 +1,4 @@
-name: Build LaTeX document and send to Discord
+name: Build PDF / Discord Upload
 
 on:
   workflow_dispatch:
