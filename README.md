@@ -24,7 +24,9 @@ You can use the GitHub-Actions located at [.github/workflows/](.github/workflows
 Use a Github Action to automatically compile the project and upload compiled pdf on your discord channel.
 
 1. Setup Discord
-    - In any Discord Channel you want go to Edit Channel -> Integrations -> Webhooks -> New Webhook
+    - Choose or create channel, where the pdf should be uploaded regularly
+    - Go to Edit Channel -> Integrations -> Webhooks -> New Webhook
+    - Rename the Webhook to *GitHub* to not get confused
     - Copy the Webhook URL
 2. Create Repository Secret
     - In your GitHub Repo go to Settings -> Secrets and Variables -> Actions -> New Repository Secret
@@ -32,9 +34,8 @@ Use a Github Action to automatically compile the project and upload compiled pdf
     - Secret: `<paste Webhook URL you copied from discord>`
     - Click Add secret
 3. Execution
-    - Once the Action is triggered, it compiles your LaTeX project and uploads the resulting pdf to Discord using your specified Webhook.
-    - You can adjust the Action behavior in [build_discord.yml](.github/workflows/build_discord.yml)
-        - See [CI/CD-Setup](#setup) for setting up the LaTeX Compile Action (You will need to set the `WORKDIR` variable)
-    - The Action Trigger is set to `workflow_dispatch`, which means manual activation.
-    - If you want to always upload the pdf to discord change `workflow_dispatch` to `push` in line 4
-        - If you choose to do so, consider disabling the normal [build.yml](.github/workflows/build.yml), by setting it to `workflow_dispatch` to not waste computing power.
+    - The [build.yml](.github/workflows/build.yml) already implements sending the pdf to discord. This step is skipped just skipped if no `DISCORD_WEBHOOK` entry is found.
+    - Once you setup the `DISCROD_WEBHOOK` secret, the Action will already be working: On every push the compiled pdf will be uploaded to your Discord Channel via Webhook.
+        - Note that you still need to go through the [Setup](#setup) (e.g. set the `WORKDIR`)
+
+If you don't want to push to discord anymore, deleting the repository secret is enough.
