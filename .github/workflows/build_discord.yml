@@ -9,7 +9,6 @@ jobs:
     env:
       # Set the root directory of your latex project here:
       WORKDIR: ./template_thesis
-
       # don't touch
       REPOSITORY: ${{ github.repository }}
       REPO_NAME: ${{ github.event.repository.name }}
