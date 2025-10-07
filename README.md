@@ -12,3 +12,6 @@ Use a Github Action to automatically compile the project and upload compiled pdf
     - Name: `DISCORD_WEBHOOK`
     - Secret: `<paste Webhook URL you copied from discord>`
     - Click Add secret
+3. Execution
+    - Once the `build_discord.yml` Action is triggered, it compiles your LaTeX project and uploads the resulting pdf to Discord using your specified Webhook.
+        - See \#TODO for Setting Up Compilation using GitHub Actions
