@@ -1,241 +1,58 @@
-% #todo - Template Info!
-%----------------------------------------------------------------------------------------
-% 	Template: Abschlussarbeiten des Studiengangs Angewandte Informatik an der HTW Berlin
-% 	C. Schmidt (Stand: Oktober 2024)
-%----------------------------------------------------------------------------------------
-%	Pakete und Konfigurationen
-%----------------------------------------------------------------------------------------
+\documentclass[language=en]{style/htwthesis}  % change to language=de if you're writing in German.
 
-\documentclass[oneside,bibliography=totocnumbered,BCOR=5mm,numbers=noendperiod]{scrbook}
+\usepackage{style/htwtitlepagethesis}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
-\usepackage{amsmath, amsthm, amssymb}
-\usepackage[ngerman]{babel}
-%\usepackage[english]{babel} % Language hyphenation and typographical rules
-\usepackage{marvosym}
-\usepackage{graphicx}
-\usepackage{csquotes}
-\newtheorem{satz}{Satz}[chapter]
-\theoremstyle{definition} 
-\newtheorem{definition}[satz]{Definition} 
-\theoremstyle{definition} 
-\newtheorem{lemma}[satz]{Lemma} 
-\theoremstyle{definition} 
-\newtheorem{bemerkung}[satz]{Bemerkung}
-\theoremstyle{definition} 
-\newtheorem{korollar}[satz]{Korollar} 
-\theoremstyle{definition}
-\newtheorem{beispiel}[satz]{Beispiel} 
-\theoremstyle{definition} 
-\newtheorem{algorithmus}{Algorithmus} 
-\newenvironment{beweis}{\begin{proof}[Beweis]}{\end{proof}}
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
-
-%----------------------------------------------------------------------------------------
-%	BIB.-Datei und Quellenverwaltung
-%----------------------------------------------------------------------------------------
-\usepackage[
-    backend=biber,
-    % sorting=none,  % comment back in if you want to sort by order of apperiance / default: sort by authors last name
-    style=numeric
-]{biblatex}
-\DefineBibliographyStrings{ngerman}{
-  andothers = {et\addabbrvspace al\adddot}
-}
-% Add your custom Bibfiles here:
+% --- Bibliography file ---
 \addbibresource{src/bibliography/custom_bibliography.bib}
-%\usepackage{natbib} % use natbib for references 
-%----------------------------------------------------------------------------------------
-\usepackage{blindtext} % Package to generate dummy text throughout this template 
+% add more bibfiles here!
 
-\usepackage[sc]{mathpazo} % Use the Palatino font
-\linespread{1.05} % Line spacing - Palatino needs more space between lines
-\usepackage{microtype} % Slightly tweak font spacing for aesthetics
-
-\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
-\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
-\usepackage{booktabs} % Horizontal rules in tables
-\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
-\usepackage{enumitem} % Customized lists
-\setlist[itemize]{noitemsep} % Make itemize lists more compact
-
-% \usepackage{titlesec} % Allows customization of titles
-% \usepackage{titling} % Customizing the title section
-
-%----------------------------------------------------------------------------------------
-%	Index
-%----------------------------------------------------------------------------------------
-\usepackage{makeidx} %Index
-\makeindex
-
-%----------------------------------------------------------------------------------------
-%	Glossary and Acronyms
-%----------------------------------------------------------------------------------------
-\usepackage[automake,acronym,toc]{glossaries}
-\makeglossaries
-% \renewcommand*{\glsnamefont}[1]{\textit{#1}}
+% --- Glossaries and acronyms ---
 \input{src/glossary.tex}
 \input{src/acronyms.tex}
 
-\newglossarystyle{tableacronymstyle}{%
-  \setglossarystyle{long} % base style
-  \renewenvironment{theglossary}%
-    {\begin{longtable}{lp{0.75\linewidth}}}%
-    {\end{longtable}}%
-  \renewcommand*{\glossaryheader}{%
-    \bfseries Abk. & \bfseries Bedeutung \\ \hline\endhead}%
-  \renewcommand*{\glossentry}[2]{%
-    \glsentryshort{##1} & \glsentrylong{##1} \\}%
-}
 
-% \newcommand{\glsnom}[1]{\glsentryuseri{#1}}
-% \newcommand{\glsgen}[1]{\glsentryuserii{#1}}
-% \newcommand{\glsdat}[1]{\glsentryuseriii{#1}}
-% \newcommand{\glsakk}[1]{\glsentryuseriv{#1}}
-
-
-\usepackage{parskip}
-\setlength{\parskip}{1em}
-\setlength{\parindent}{0pt}
-
-\usepackage{array}
-
-\usepackage{wrapfig}
-
-\usepackage{subcaption}
-
-%----------------------------------------------------------------------------------------
-%	Listings
-%----------------------------------------------------------------------------------------
-\usepackage{listings}
-\usepackage{color}
-
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-\lstset{ 
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-%   inputencoding=utf8,
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  firstnumber=1,                % start line enumeration with line 1000
-  frame=single,	                   % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  language=Python,                 % the language of the code
-  mathescape=true,                 % math is executed inside of listings
-  morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,	                   % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
-}
-
-%----------------------------------------------------------------------------------------
-%	Haupttextteil
-%----------------------------------------------------------------------------------------
+%--------------------------------------------------
 
 \begin{document}
 
-% Titelseite
-% \pagestyle{empty}       % keine Seitennummer
-\input{src/pre/titlepage_de.tex}
-\newpage
+% --- Titlepage ---
+\ititle{Title of the Thesis}
+\idocumenttype{Bachelor of Science}
+\iuniversity{Hochschule für Technik und Wirtschaft Berlin}  
+\ifaculty{Fachbereich 4: Informatik, Kommunikation und Wirtschaft}
+\istudyprogramme{Angewandte Informatik}
+\isupervisorone{Prof. Dr. Mustermann}
+\isupervisortwo{Prof. Mustermann}
+\iauthor{Max Mustermann}
+\imatrnr{123456}
+\idate{\today}
 
-\thispagestyle{empty}       % keine Seitennummer
-% \input{src/vorspann/sperrvermerk.tex}
-
+\makeititle
 % \newpage
-% \thispagestyle{empty}       % keine Seitennummer
-% \input{src/vorspann/danksagung.tex}
 
-\newpage
+% --- Abstract ---
+\input{src/tex/abstract.tex}
 
-\thispagestyle{empty}       % keine Seitennummer
-\input{src/pre/abstract.tex}
-
-\clearpage
-%Seite 1
-\pagenumbering{roman}% Seitennummerierung "roemisch"
-%\setcounter{page}{1} 
-
-\tableofcontents  
-
-
-
+% --- TOC and lists ---
+\pagenumbering{roman}
+\tableofcontents
 \listoffigures
 \listoftables
 \lstlistoflistings
-
 \newpage
 
-\pagenumbering{arabic}  % Nummerierung der Seiten in 'arabisch' % neues Kapitel mit Namen "Introduction"
- %Seite 1
- % \setcounter{page}{1}   % setzt Seitenzaehlung auf 1
- 
-\input{src/tex/introduction.tex}  % 5%
-% \input{src/verwandtearbeiten/verwandtearbeiten.tex} % 10%
-% \input{src/grundlagen/grundlagen.tex} % 15%
-% \input{src/methodologie/methologie.tex} % 15%
-% \input{src/anforderungsanalyse/anforderungsanalyse.tex} % 20%
-% \input{src/entwurf/entwurf.tex} % 30%
-% \input{src/implementierung/implementierung.tex}
-% \input{src/wertung/wertung.tex}
-% \input{src/zusammenfassung/zusammenfassung.tex}
+% --- Main content ---
+\pagenumbering{arabic}
+\input{src/tex/introduction.tex}
+% more of your content
 
 
-%----------------------------------------------------------------------------------------
-%	REFERENCE LIST
-%----------------------------------------------------------------------------------------
+% --- Bibliography ---
+\printbibliography[heading=bibintoc]
 
-
-% \bibliographystyle{apalike}
-% \bibliographystyle{ksfh_nat} % ein anderer Stil
-% \bibliography{science} 
-
-%\begin{thebibliography}{XX}
-%\bibitem[Bielecki, Rutkowski(2002)]{bielecki02}T. Bielecki, M. Rutkowski, Credit Risk: Modeling, Valuation and Hedging, Springer (2002).
-%\bibitem[Jarrow, Turnbull(1995)]{jarrow95} R.A. Jarrow, S. Turnbull, Pricing derivatives on financial securities subject to credit risk, Journal of Finance, 50:1 (1995) 53--85.
-%\bibitem[Marshall, Olkin(1967)]{marshall67} A.W. Marshall, I. Olkin, A multivariate exponential distribution, Journal of the American Statistical Association, 62 (1967), pp. 30--44.
-%\bibitem[Sch\"onbucher(2003)]{schoenbucher03} P.J. Sch\"onbucher, Credit Derivatives Pricing Models, Wiley (2003).
-%\end{thebibliography}
-
-\printbibliography[
-heading=bibintoc,
-title={Quellenverzeichnis}
-]
-
-\newpage
-
-\printglossary[type=\acronymtype,style=tableacronymstyle,title=Abk\"urzungsverzeichnis, toctitle=Abk\"urzungsverzeichnis]
-\printglossary[type=main,title=Glossar, toctitle=Glossar]
-\newpage
-
-
-\begin{appendix}
-
-\pagenumbering{Roman}
-
-% \input{src/appendix/appendix.tex}
-
-\end{appendix}
+% --- Glossaries ---
+\printglossary[type=\acronymtype,style=tableacronymstyle,title=\GlossaryTitleAcronyms]
+\printglossary[type=main,title=\GlossaryTitleMain]
 
 
 \end{document}
-
