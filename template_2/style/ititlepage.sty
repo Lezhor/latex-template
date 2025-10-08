@@ -1,0 +1,40 @@
+% ititlepage.sty — simple title page style
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ititlepage}[2025/10/08 Simple custom title page package]
+
+% Store variables
+\newcommand{\@ititle}{}
+\newcommand{\@ithesistype}{}
+\newcommand{\@iuniversity}{}
+\newcommand{\@iauthor}{}
+\newcommand{\@idate}{}
+
+% User commands to set them
+\newcommand{\ititle}[1]{\renewcommand{\@ititle}{#1}}
+\newcommand{\ithesistype}[1]{\renewcommand{\@ithesistype}{#1}}
+\newcommand{\iuniversity}[1]{\renewcommand{\@iuniversity}{#1}}
+\newcommand{\iauthor}[1]{\renewcommand{\@iauthor}{#1}}
+\newcommand{\idate}[1]{\renewcommand{\@idate}{#1}}
+
+% The title page creation command
+\newcommand{\makeititle}{
+    \begin{titlepage}
+        \centering
+        \vspace*{3cm}
+
+        {\LARGE\bfseries \@ititle \par}
+        \vspace{1.5cm}
+
+        {\large \@ithesistype \par}
+        \vspace{2cm}
+
+        {\large \@iuniversity \par}
+        \vfill
+
+        {\large Author: \@iauthor \par}
+        \vspace{0.5cm}
+        {\large Date: \@idate \par}
+
+        \vspace*{2cm}
+    \end{titlepage}
+}

@@ -1,0 +1,50 @@
+%--------------------------------------------------
+% Thesis at HTW Berlin
+%--------------------------------------------------
+\documentclass[oneside,bibliography=totocnumbered,BCOR=5mm,numbers=noendperiod]{scrbook}
+\usepackage[language=en]{style/htwstyle}  % change to language=de if you're working on a Thesis in German.
+
+% --- Bibliography file ---
+\addbibresource{src/bibliography/custom_bibliography.bib}
+% add more bibfiles here!
+
+% --- Glossaries and acronyms ---
+\input{src/glossary.tex}
+\input{src/acronyms.tex}
+
+
+%--------------------------------------------------
+
+\begin{document}
+
+% --- Titlepage ---
+% \input{src/pre/titlepage_de.tex}
+% \newpage
+
+% --- Abstract ---
+\input{src/tex/abstract.tex}
+
+% --- TOC and lists ---
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
+\newpage
+
+
+% --- Main content ---
+\pagenumbering{arabic}
+\input{src/tex/introduction.tex}
+% more of your content
+
+
+% --- Bibliography ---
+\printbibliography[heading=bibintoc]
+
+% --- Glossaries ---
+\printglossary[type=\acronymtype,style=tableacronymstyle,title=\GlossaryTitleAcronyms]
+\printglossary[type=main,title=\GlossaryTitleMain]
+
+
+\end{document}
