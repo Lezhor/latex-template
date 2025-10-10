@@ -2,13 +2,16 @@ name: Build PDF
 
 on:
   push:
+    branches:
+      - 'main'
+      - 'master'
 
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     env:
       # Set the root directory of your latex project here:
-      WORKDIR: ./template_paper
+      WORKDIR: ./template_beamer1
       # don't touch
       REPOSITORY: ${{ github.repository }}
       REPO_NAME: ${{ github.event.repository.name }}
