@@ -1,11 +1,71 @@
 # latex-template
 A General Template for writing a Thesis in Latex on a Windows WSL Backend.
 
+# Quickstart
+## Windows
+
+<details>
+  <summary>1) Install Windows Subsystem for Linux (WSL)</summary>
+    <ol>
+      <li>Go to Control Panel -> Programs -> Turn Windows feature on or off</li>
+      <li>In List of features enable "Virtual Machine Platform" and "Windows Subsystem for Linux</li>
+      <li>Restart Computer</li>
+      <li>Check if installed: Run <code>wsl --status</code> in CMD</li>
+      <li>Run <code>wsl --update</code></li>
+    </ol>
+</details>
+
+<details>
+  <summary>2) Setup WSL Distro</summary>
+    <ol>
+      <li>Open Microsoft Store</li>
+      <li>Search for a Linux Distro of your choice (Debian or Ubuntu recomended)</li>
+      <li>Press Install and wait</li>
+      <li>Press Open</li>
+      <li>Create username and password for your new Virtual Machine</li>
+      <li>You're in the Terminal of your Virtual Machine now and can do what you want!</li>
+      <li>Once you close the Terminal the VM continues in the background. You can open it again with pressing the Windows Key and typing Debian (or Ubuntu or whatever Distro you chose) - It's like a local App on your machine.</li>
+    </ol>
+</details>
+
+<details>
+  <summary>3) Install TexLive on Virtual Machine</summary>
+    <ol>
+      <li>Run <code>sudo apt update && sudo apt upgrade -y</code> on your VM</li>
+      <li>Run <code>sudo apt install texlive-full</code></li>
+      <ul><li>Installing takes quite a while so in the meantime you may proceed with VS-Code (next section)</li></ul>
+    </ol>
+</details>
+
+<details>
+  <summary>4) Setup VS-Code</summary>
+    <ol>
+      <li>In case you haven't installed Visual Studio Code (on your main Windows OS) yet, do it now (<a href="https://code.visualstudio.com/download" target="_blank">Download-Link</a>)</li>
+      <li>Install Extensions via the Extensions Tab in VS-Code</li>
+      <ul>
+        <li>LaTeX Workwhop Plugin by James Yu</li>
+        <li>Remote Development Extension Pack</li>
+      </ul>
+      <li>Connect to WSL</li>
+    </ol>
+</details>
+
+
+
+
+## Linux
+PRs are welcome... 😅
+
+## MacOS
+PRs are welcome... 😅
+
+Smth with `brew install texlive`
+
 # CI/CD
 
-You can use the GitHub-Actions located at [.github/workflows/](.github/workflows/) to build your LaTeX Project in the Cloud.
+You can use the GitHub-Actions located at [.github/workflows/](.github/workflows/) to build your LaTeX Project in the Cloud. See [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord) for uploading the pdf on discord automatically after build.
 
-## Setup
+## Build Latex with GitHub Actions
 
 1. Setup the Root Directory
     - Edit the [build.yml](.github/workflows/build.yml) Action
