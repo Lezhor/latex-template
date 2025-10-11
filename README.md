@@ -46,9 +46,16 @@ A General Template for writing a Thesis in Latex on a Windows WSL Backend.
         <li>LaTeX Workwhop Plugin by James Yu</li>
         <li>Remote Development Extension Pack</li>
       </ul>
-      <li>Connect to WSL</li>
+      <li>Press the green button in the bottom left corner of the screen (the one with a bigger and smaller symbol):</li>
+      <img width="289" height="187" alt="image" src="https://github.com/user-attachments/assets/b68787a2-6bb5-4a5e-93c9-979c21164bb6" />
+      <li>Choose Option "Connect to WSL" (or "Connect to WSL using Distro" if you have multiple Distros running and want to select a specific one)</li>
+      <img width="451" height="236" alt="image" src="https://github.com/user-attachments/assets/82f64099-e67c-4962-89a9-361dd75ecf1e" />
+      <li>You can open any project on your VM in VS-Code by pressing Open Folder and selecting the folder in the VM-Filesystem</li>
+      <img width="662" height="247" alt="image" src="https://github.com/user-attachments/assets/ac6966f9-cd02-4df6-8e83-ae7829a18dbf" />
     </ol>
 </details>
+
+
 
 
 
