@@ -1,18 +1,41 @@
-name: Build All Projects
+name: Build all LaTeX projects
 
 on:
   workflow_dispatch:
 
 jobs:
-  build_all:
+  discover-and-build:
     runs-on: ubuntu-latest
-    env:
-      REPOSITORY: ${{ github.repository }}
-      REPO_NAME: ${{ github.event.repository.name }}
-      # DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
     steps:
-      - name: Set up Git repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Discover LaTeX projects
+        id: discover
+        run: |
+          echo "Searching for main.tex files..."
+          projects=$(find . -mindepth 2 -maxdepth 2 -name main.tex -printf '%h\n')
+          echo "Found projects:"
+          echo "$projects"
+          projects_json=$(echo "$projects" | jq -R -s -c 'split("\n")[:-1]')
+          echo "projects=$projects_json" >> $GITHUB_OUTPUT
+
+    outputs:
+      projects: ${{ steps.discover.outputs.projects }}
+
+  build:
+    needs: discover-and-build
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.discover-and-build.outputs.projects) }}
+
+    steps:
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Get commit info
@@ -20,56 +43,35 @@ jobs:
         run: |
           echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
           echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
-        
-      - name: Find LaTeX projects
-        id: find
-        run: |
-          echo "Finding LaTeX projects..."
-          PROJECTS=$(find . -mindepth 1 -maxdepth 2 -type f -name "main.tex" -printf '%h\n' | sort)
-          echo "Found projects:"
-          echo "$PROJECTS"
-          echo "projects<<EOF" >> $GITHUB_OUTPUT
-          echo "$PROJECTS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Compile LaTeX projects
-        run: |
-          set -e
-          echo "Compiling LaTeX projects..."
-          while IFS= read -r dir; do
-            echo "🧩 Building $dir"
-            latexmk -pdf -cd "$dir/main.tex" || exit 1
-          done <<< "${{ steps.discover.outputs.projects }}"
+      - name: Compile LaTeX project
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: ${{ matrix.project }}
 
-      - name: Upload all PDF file
+      - name: Upload PDF as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: all-built-pdfs
-          path: |
-            */main.pdf
-            */*/main.pdf
+          name: ${{ matrix.project }}-pdf
+          path: ${{ matrix.project }}/main.pdf
 
-      # - name: Send PDFs to Discord
-      #   if: ${{ secrets.DISCORD_WEBHOOK != '' }}
-      #   env:
-      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      #     COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
-      #     COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
-      #     REPOSITORY: ${{ env.REPOSITORY }}
-      #     REPO_NAME: ${{ env.REPO_NAME }}
-      #   run: |
-      #     while IFS= read -r dir; do
-      #       if [ ! -f "$dir/main.pdf" ]; then
-      #         echo "❌ No PDF found for $dir, skipping Discord upload."
-      #         continue
-      #       fi
-      #       CONTENT=$(jq -n \
-      #         --arg repo "$REPO_NAME" \
-      #         --arg wdir "$dir" \
-      #         --arg author "$COMMIT_AUTHOR" \
-      #         --arg msg "$COMMIT_MESSAGE" \
-      #         '{content: "# 📘 **\($repo)** - (Building All)\n- Built **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
-      #       curl -F "payload_json=${CONTENT}" \
-      #            -F "file=@${dir}/main.pdf" \
-      #            "$DISCORD_WEBHOOK"
-      #     done <<< "${{ steps.discover.outputs.projects }}"
+      - name: Send PDF to Discord
+        if: ${{ env.DISCORD_WEBHOOK != '' }}
+        env:
+          DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
+          WORKDIR: ${{ matrix.project }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
+          COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
+        run: |
+          CONTENT=$(jq -n \
+            --arg repo "$REPO_NAME" \
+            --arg dir "$WORKDIR" \
+            --arg author "$COMMIT_AUTHOR" \
+            --arg msg "$COMMIT_MESSAGE" \
+            '{content: "# 📘 **\($repo)** - (Building All)\n- Built **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
+
+          curl -F "payload_json=${CONTENT}" \
+               -F "file=@${WORKDIR}/main.pdf" \
+               "$DISCORD_WEBHOOK"
