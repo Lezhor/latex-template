@@ -13,7 +13,7 @@ A General Template for writing a Thesis in Latex on a Windows WSL Backend.
     - `template_paper` - Similar to HTW Thesis but with a custom pretty title page
     - `template_beamer` - Presentation with a custom style, matching the HTW style.
 6. Build the `main.tex` file
-    - If you installed the Latex Workshop Extension correctly, a green play button shoult appear in the top right of the screen, when you open the `main.tex` of the project you just copied.
+    - If you installed the Latex Workshop Extension correctly, a green play button shoult appear in the top right corner of the screen, when you open the `main.tex` of the project you just copied.
     - Press it
     - If you did everything correctly a `main.pdf` file should appear in the same folder as the `main.tex`
     - Either open the `main.pdf` in split view or pin the according Tab in VS-Codoe, since you will need to view it often.
