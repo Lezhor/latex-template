@@ -1,7 +1,7 @@
-name: Build all LaTeX projects
+name: Build all PDF
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   discover-and-build:
