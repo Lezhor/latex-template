@@ -194,8 +194,8 @@ You can also configure the Actions to only build one project at a time.
 2. Add a repository variable by going to GitHub -> Settings -> Secrets and variables -> Actions -> Variables -> New repository variable.
     - The Name should be `PROJECT_TO_BUILD`
     - The Value should be set to the folder with the latex project you want to build, e.g. if your Latex rootfile's location is `./my_thesis/main.tex`, then the value should be `./my_thesis`. (Note that this variable has to start with `./` but cannot end in `/`)
-
-After adding the repository variable, `Build single PDF` should start working on every push. If it doesn't trigger, check that [build.yml](.github/workflows/build.yml) has the `push:` key after `on:`.
+3. Edit [build.yml](.github/workflows/build.yml)
+    - Uncomment line 4 to trigger the workflow on every push.
 
 If you want to switch the Project you work on, edit the `PROJECT_TO_BUILD` repository variable.
 
