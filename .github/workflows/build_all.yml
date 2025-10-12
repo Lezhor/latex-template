@@ -51,9 +51,19 @@ jobs:
           working_directory: ${{ matrix.project }}
 
       - name: Upload PDF as artifact
-        uses: actions/upload-artifact@v4
+        run: |
+          # Clean the project name (remove leading ./ and replace / with _)
+          SAFE_NAME=$(echo "${{ matrix.project }}" | sed 's|^\./||; s|/|_|g')
+          echo "Uploading artifact: ${SAFE_NAME}-pdf"
+          echo "path: ${{ matrix.project }}/main.pdf"
+
+          # Use the cleaned name for upload
+          echo "name=${SAFE_NAME}-pdf" >> $GITHUB_ENV
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.project }}-pdf
+          name: ${{ env.name }}
           path: ${{ matrix.project }}/main.pdf
 
       - name: Send PDF to Discord
