@@ -7,7 +7,9 @@ on:
 jobs:
   discover-and-build:
     runs-on: ubuntu-latest
-
+    outputs:
+      projects: ${{ steps.discover.outputs.projects }}
+      has_projects: ${{ steps.discover.outputs.has_projects }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -15,7 +17,7 @@ jobs:
       - name: Discover LaTeX projects
         id: discover
         run: |
-          echo "Searching for main.tex files..."
+          echo "🔍 Searching for LaTeX projects..."
           projects=$(find . -mindepth 2 -maxdepth 2 -name main.tex -printf '%h\n' || true)
           projects=$(echo "$projects" | sed '/^\s*$/d')
           if [ -z "$projects" ]; then
