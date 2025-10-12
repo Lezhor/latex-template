@@ -9,7 +9,7 @@ jobs:
     env:
       REPOSITORY: ${{ github.repository }}
       REPO_NAME: ${{ github.event.repository.name }}
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      # DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
     steps:
       - name: Set up Git repository
@@ -49,27 +49,27 @@ jobs:
             */main.pdf
             */*/main.pdf
 
-      - name: Send PDFs to Discord
-        if: ${{ secrets.DISCORD_WEBHOOK != '' }}
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
-          COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
-          REPOSITORY: ${{ env.REPOSITORY }}
-          REPO_NAME: ${{ env.REPO_NAME }}
-        run: |
-          while IFS= read -r dir; do
-            if [ ! -f "$dir/main.pdf" ]; then
-              echo "❌ No PDF found for $dir, skipping Discord upload."
-              continue
-            fi
-            CONTENT=$(jq -n \
-              --arg repo "$REPO_NAME" \
-              --arg wdir "$dir" \
-              --arg author "$COMMIT_AUTHOR" \
-              --arg msg "$COMMIT_MESSAGE" \
-              '{content: "# 📘 **\($repo)** - (Building All)\n- Built **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
-            curl -F "payload_json=${CONTENT}" \
-                 -F "file=@${dir}/main.pdf" \
-                 "$DISCORD_WEBHOOK"
-          done <<< "${{ steps.discover.outputs.projects }}"
+      # - name: Send PDFs to Discord
+      #   if: ${{ secrets.DISCORD_WEBHOOK != '' }}
+      #   env:
+      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      #     COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
+      #     COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
+      #     REPOSITORY: ${{ env.REPOSITORY }}
+      #     REPO_NAME: ${{ env.REPO_NAME }}
+      #   run: |
+      #     while IFS= read -r dir; do
+      #       if [ ! -f "$dir/main.pdf" ]; then
+      #         echo "❌ No PDF found for $dir, skipping Discord upload."
+      #         continue
+      #       fi
+      #       CONTENT=$(jq -n \
+      #         --arg repo "$REPO_NAME" \
+      #         --arg wdir "$dir" \
+      #         --arg author "$COMMIT_AUTHOR" \
+      #         --arg msg "$COMMIT_MESSAGE" \
+      #         '{content: "# 📘 **\($repo)** - (Building All)\n- Built **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
+      #       curl -F "payload_json=${CONTENT}" \
+      #            -F "file=@${dir}/main.pdf" \
+      #            "$DISCORD_WEBHOOK"
+      #     done <<< "${{ steps.discover.outputs.projects }}"
