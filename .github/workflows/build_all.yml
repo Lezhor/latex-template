@@ -27,6 +27,8 @@ jobs:
   build:
     needs: discover-and-build
     runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     strategy:
       fail-fast: false
       matrix:
@@ -55,9 +57,9 @@ jobs:
           path: ${{ matrix.project }}/main.pdf
 
       - name: Send PDF to Discord
-        if: ${{ secrets.DISCORD_WEBHOOK != '' }}
+        if: ${{ env.DISCORD_WEBHOOK != '' }}
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
           WORKDIR: ${{ matrix.project }}
           REPO_NAME: ${{ github.event.repository.name }}
           COMMIT_MESSAGE: ${{ steps.commit.outputs.message }}
