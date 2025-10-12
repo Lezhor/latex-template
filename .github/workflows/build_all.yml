@@ -1,7 +1,8 @@
 name: Build all PDF
 
 on:
-  push:
+  push:  # comment this line if you dont want to build on every push.
+  workflow_dispatch:
 
 jobs:
   discover-and-build:
