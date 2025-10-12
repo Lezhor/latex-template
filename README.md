@@ -2,6 +2,50 @@
 A General Template for writing a Thesis in Latex on a Windows WSL Backend.
 
 # Quickstart
+1. If you use this Template for the first time, you will need to complete the [Environment Setup Section](#environment-setup) first.
+2. Create a new GitHub repository, using this repository as a Template.
+    - You will be able to have multiple latex Projects inside a single repository, so in some cases one Repo is enough for all your projects.
+3. Clone your new Repository to the OS where the TexLive Server is running
+    - On Windows this will be your WSL. Open the Terminal and run `git clone github/link_to_your_repo.git`.
+4. Open the Repository in Visual Studio Code
+5. Copy the template folder you want to base your latex project of and rename it to whatever your project is called:
+    - `template_thesis` - HTW Thesis (the Title Page is given by the HTW and can't be changed)
+    - `template_paper` - Similar to HTW Thesis but with a custom pretty title page
+    - `template_beamer` - Presentation with a custom style, matching the HTW style.
+6. Build the `main.tex` file
+    - If you installed the Latex Workshop Extension correctly, a green play button shoult appear in the top right of the screen, when you open the `main.tex` of the project you just copied.
+    - Press it
+    - If you did everything correctly a `main.pdf` file should appear in the same folder as the `main.tex`
+    - Either open the `main.pdf` in split view or pin the according Tab in VS-Codoe, since you will need to view it often.
+    - Whenever you edit and save the `main.tex` (or any subfile which is included in the `main.tex`) the project rebuilds automatically and you should see the changes in the `main.pdf` after a couple of seconds.
+8. Choose the Language by changing `language=en` to `language=de` (or vice verca) in the first line of `main.tex`
+9. Update the titlepage by editing the `main.tex`. Update the values of the titlepage commands (right after `\begin{document}`) to hold the values you want to display on your titlepage.
+    - This is an overview of all titlepage-values with the templates that use them and those that don't:
+
+|  | `template_paper` | `template_thesis` | `template_beamer` |
+|----------|-------------|-------------|------------|
+| `\ititle` | ✔ | ✔ | ✔ |
+| `\idocumenttype` | ✔ | ✔ | ✔ |
+| `\iuniversity` | ✔ | ✔ | ✔ |
+| `\ifaculty` | ✔ | ✔ | ✔ |
+| `\istudypgoramme` | ✔ | ✔ | ✔ |
+| `\isupervisorone` | | ✔ | |
+| `\isupervisortwo` | | ✔ | |
+| `\iauthor` | ✔ | ✔ | ✔ |
+| `\imatrnr` | ✔ | ✔ | ✔ |
+| `\idate` | ✔ | ✔ | ✔ |
+
+## Using this Latex Setup
+- #todo
+- Write about how to use:
+    - The filestructure
+    - subfiles
+    - bibfiles
+    - glossaries
+    - acronyms
+    - latex environments (chapter, section etc.)
+
+# Environment Setup
 ## Windows
 
 <details>
@@ -41,7 +85,7 @@ A General Template for writing a Thesis in Latex on a Windows WSL Backend.
   <summary>4) Setup VS-Code</summary>
     <ol>
       <li>In case you haven't installed Visual Studio Code (on your main Windows OS) yet, do it now (<a href="https://code.visualstudio.com/download" target="_blank">Download-Link</a>)</li>
-      <li>Install Extensions via the Extensions Tab in VS-Code</li>
+      <li>Install the following Extensions via the Extensions Tab in VS-Code:</li>
       <ul>
         <li>LaTeX Workwhop Plugin by James Yu</li>
         <li>Remote Development Extension Pack</li>
@@ -56,20 +100,31 @@ A General Template for writing a Thesis in Latex on a Windows WSL Backend.
 </details>
 
 <details>
-  <summary>5) Set up SSH with GitHub on VM</summary>
+  <summary>5) Set up SSH on VM</summary>
     <ol>
-      <li>(See the <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank">official documentation</a> for further information)</li>
       <li>Open the VM Terminal (Open App Debian, Ubuntu, whatever Distro you chose)</li>
       <li>Run <code>ssh-keygen -t ed25519 -C "your_email@example.com</code> to generate public/private keypair</li>
       <ul><li>When prompted to Enter a passphrase enter a short phrase for verification. Note that you will need to type this phrase EVERY TIME you use your SSH key, aka. on every Push and Pull. If this sounds too annoying you can skip it by leaving the passphrase empty.</li></ul>
-      <li>Run <code>eval "$(ssh-agent -s)</code> to launch the ssh agent (only needs to be done once)</li>
+      <li>Run <code>eval "$(ssh-agent -s)</code> to launch the ssh agent</li>
       <li>Run <code>ssh-add ~/.ssh/id_ed25519</code> to add the key to your agent.</li>
-      <ul><li>Note that you need to add your private key (no extension) and not the public key</li>
+      <ul><li>Note that you need to add your private key (which has no extension) and not the public key</li>
       <li>The ssh file might have another name. Doublecheck the name in <code>~/.ssh/</code></li></ul>
-      <li>Run <code>cat ~/.ssh/id_ed25519.pub | clip.exe</code> to copy your public key to the Windows Clipboard</li>
     </ol>
 </details>
 
+<details>
+  <summary>6) Set up SSH on GitHub (<a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">official documentation</a>)</summary>
+    <ol>
+      <li>Run <code>cat ~/.ssh/id_ed25519.pub | clip.exe</code> in your VM Terminal to copy your public key to the Windows Clipboard</li>
+      <li>On the GitHub WebSite click your profile picture, then click Settings</li>
+      <li>In th "Access" secion of the sidebar, click SSH and GPG keys</li>
+      <li>Click New SSH key or Add SSH Key</li>
+      <li>Give your SSH-Key a name (idealy featuring words WSL or the name of your WSL Distro</li>
+      <li>Select "authentication" as the type of key</li>
+      <li>Paste your public key in the key field</li>
+      <li>Click Add SSH key</li>
+    </ol>
+</details>
 
 
 ## Linux
