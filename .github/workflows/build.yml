@@ -46,9 +46,10 @@ jobs:
           COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
           REPOSITORY: ${{ env.REPOSITORY }}
           REPO_NAME: ${{ env.REPO_NAME }}
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
-          CONTENT=$(jq -n --arg repo "$REPO_NAME" --arg wdir "$WORKDIR" --arg author "$COMMIT_AUTHOR" --arg msg "$COMMIT_MESSAGE" \
-            '{content: "# 📘 **\($repo)**\n- Built **\($wdir)/main.tex**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
+          CONTENT=$(jq -n --arg repo "$REPO_NAME" --arg wdir "$WORKDIR" --arg author "$COMMIT_AUTHOR" --arg msg "$COMMIT_MESSAGE" --arg branch "$BRANCH_NAME" \
+            '{content: "# 📘 **\($repo)**\n- Built **\($wdir)/main.tex** from branch `\($branch)`\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
           curl -F "payload_json=${CONTENT}" \
                -F "file=@${WORKDIR}/main.pdf" \
                "$DISCORD_WEBHOOK"
