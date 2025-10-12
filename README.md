@@ -160,16 +160,18 @@ repository/
 | `\imatrnr` | ✔ | ✔ | ✔ |
 | `\idate` | ✔ | ✔ | ✔ |
 
-<!-- ## Using this Latex Setup
+## Using this Latex Setup
 - #todo
 - Write about how to use:
     - The filestructure
     - subfiles
     - bibfiles
+        - With Zotero
     - glossaries
     - acronyms
     - latex environments (chapter, section etc.)
-    - the given .sty and .cls files -->
+    - the given .sty and .cls files
+        - import new packages / see which are imported already.
 
 # CI/CD
 
