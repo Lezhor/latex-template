@@ -89,7 +89,7 @@
     \ifthenelse{\boolean{isGerman}}{Eingereicht von}{Submitted by}\\[0.3cm]
     {\Large \@iauthor}\\[0.4cm]
     \ifx\@imatrnr\@empty\else
-        Matrikelnummer \@imatrnr\\[0.8cm]
+        \ifthenelse{\boolean{isGerman}}{Matrikelnummer}{Matriculation Number} \@imatrnr\\[0.8cm]
     \fi
 
     % Date
