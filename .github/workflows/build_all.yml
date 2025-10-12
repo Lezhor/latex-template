@@ -77,7 +77,7 @@ jobs:
         run: |
           CONTENT=$(jq -n \
             --arg repo "$REPO_NAME" \
-            --arg dir "$WORKDIR" \
+            --arg wdir "$WORKDIR" \
             --arg author "$COMMIT_AUTHOR" \
             --arg msg "$COMMIT_MESSAGE" \
             '{content: "# 📘 **\($repo)** - (Building All)\n- Built **\($wdir)**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
