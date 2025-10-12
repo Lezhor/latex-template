@@ -1,7 +1,7 @@
 # latex-template
 A collection of LaTeX Templates, you can use on your local Machine in Visual Studio Code. 
 These templates enable you to compile the Latex Project(s) right inside of Visual Studio Code.
-Additionally GitHub Actions can be configured, to build your project directly in the GitHub Cloud (see [CI/CD](#cicd)) and even upload the resulting pdf to a Discord Channel of your choice for convenient access on the go (see [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord)).
+Additionally GitHub Actions can be configured, to build your LaTeX-Project directly inside the GitHub Cloud (see [CI/CD](#cicd)) and even upload the resulting pdf to a Discord Channel of your choice for convenient access on the go (see [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord)).
 
 ## List of featured templates:
 - `_templates/template_thesis/` - HTW Thesis (the Title Page is given by the HTW and can't be changed)
@@ -13,13 +13,17 @@ If you have any suggestions regarding one of the existing templates or have an i
 But please reach out to me first, e.g. by creating a GitHub-Issue where you elaborate on your idea.
 
 # Environment Setup
+Note that you can skip this entire section, if you choose to work in Overleaf instead of your local machine.
+However, this defeats the entire purpose of this template.
+Working on a local setup is recomended, e.g. because Overleaf has a limited Build Time, which makes it impossible to work with (without a premium subscription), once your project becomes too big.
+
 ## Windows
 
 <details>
   <summary>1) Install Windows Subsystem for Linux (WSL)</summary>
     <ol>
       <li>Go to Control Panel -> Programs -> Turn Windows feature on or off</li>
-      <li>In List of features enable "Virtual Machine Platform" and "Windows Subsystem for Linux</li>
+      <li>In List of features enable "Virtual Machine Platform" and "Windows Subsystem for Linux"</li>
       <li>Restart Computer</li>
       <li>Check if installed: Run <code>wsl --status</code> in CMD</li>
       <li>Run <code>wsl --update</code></li>
@@ -32,10 +36,10 @@ But please reach out to me first, e.g. by creating a GitHub-Issue where you elab
       <li>Open Microsoft Store</li>
       <li>Search for a Linux Distro of your choice (Debian or Ubuntu recomended)</li>
       <li>Press Install and wait</li>
-      <li>Press Open</li>
-      <li>Create username and password for your new Virtual Machine</li>
-      <li>You're in the Terminal of your Virtual Machine now and can do what you want!</li>
-      <li>Once you close the Terminal the VM continues in the background. You can open it again with pressing the Windows Key and typing Debian (or Ubuntu or whatever Distro you chose) - It's like a local App on your machine.</li>
+      <li>Press Open (This should start a Terminal window, which is connected to your newly installed Virtual Machine)</li>
+      <li>Create username and password for your new VM</li>
+      <li>The Virtual Machine is setup and running and you can do whatever you want on it</li>
+      <li>Once you close the Terminal the VM continues to run in the background. You can open it again by pressing the Windows Key and typing Debian (or Ubuntu or whatever Distro you chose) - It's like a local App on your Windows Machine.</li>
     </ol>
 </details>
 
@@ -57,7 +61,8 @@ But please reach out to me first, e.g. by creating a GitHub-Issue where you elab
         <li>LaTeX Workwhop Plugin by James Yu</li>
         <li>Remote Development Extension Pack</li>
       </ul>
-      <li>Press the green button in the bottom left corner of the screen (the one with a bigger and smaller symbol):</li>
+      <li>Check if TexLive has finished installing (The next step needs it)</li>
+      <li>Press the green button in the bottom left corner of the VS-Code window (the one with a bigger and smaller symbol):</li>
       <img width="289" height="187" alt="image" src="https://github.com/user-attachments/assets/b68787a2-6bb5-4a5e-93c9-979c21164bb6" />
       <li>Choose Option "Connect to WSL" (or "Connect to WSL using Distro" if you have multiple Distros running and want to select a specific one)</li>
       <img width="451" height="236" alt="image" src="https://github.com/user-attachments/assets/82f64099-e67c-4962-89a9-361dd75ecf1e" />
