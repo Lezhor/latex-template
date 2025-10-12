@@ -179,24 +179,33 @@ You can use the GitHub-Actions located in [.github/workflows/](.github/workflows
 
 ## Build Latex with GitHub Actions
 
-1. Setup the Root Directory
-    - Edit the [build.yml](.github/workflows/build.yml) Action
-    - In Line 11 set `WORKDIR` to your root-directory (aka. replace `./template_thesis` with the path to the directory where your `main.tex` is located)
-2. Multiple LaTeX Projects?
-    - Your Repository can contain multiple LaTeX Projects in different folders, each with their own `main.tex` file.
-    - Choose whichever one you want to build in the Cloud and asign the rootdirectory to the `WORKDIR` variable accordingly.
-    - If you want multiple projects to build automatically you will need to duplicate the file and adjust the `WORKDIR` variable for each one of them. When duplicating you need to rename the file **AND** the Action itself (first line in the file)
-3. Execution Trigger
-    - Default behavior: Builds Latex project on every git push.
-    - If you want the action to run only on manual trigger change `push` in line 4 to `workflow_dispatch`
-    - Each Exection of the Action will create a new pdf which you can find in the artifacts section of the Action build instance.
-        - Note that the pdf is zipped because a GitHub-Action-Artifact can't be a loose file
+There are two GitHub Actions, both of which are located in [.github/workflows/](.github/workflows/):
+- `Build all PDF` (finds and builds all projects in the root folder)
+- `Build single PDF` (configure, which project to build)
+
+By default `Build all PDF` is enabled and builds every single project on every `git push`.
+Templates are not built, because only `main.tex` files with exactly one parent folder between them and the root are included.
+The templates have two, since they are in the `_templates` directory, that's why they are ignored.
+
+You can also configure the Actions to only build one project at a time.
+(useful for when you have multiple projects in your repository but only work on one at the same time.)
+1. Disable `Build all PDF`
+    - Either by disabling the Workflow in the GitHub Actions Tab or by commenting line 4 in the [build_all.yml](.github/workflows/build_all.yml), to make it only work on manual trigger (`workflow_dispatch`).
+2. Add a repository variable by going to GitHub -> Settings -> Secrets and variables -> Actions -> Variables -> New repository variable.
+    - The Name should be `PROJECT_TO_BUILD`
+    - The Value should be set to the folder with the latex project you want to build, e.g. if your Latex rootfile's location is `./my_thesis/main.tex`, then the value should be `./my_thesis`. (Note that this variable has to start with `./` but cannot end in `/`)
+3. Edit [build.yml](.github/workflows/build.yml)
+    - Uncomment line 4 to trigger the workflow on every push.
+
+If you want to switch the Project you work on, edit the `PROJECT_TO_BUILD` repository variable.
+
+If you want to switch back to `Build all PDF`, delete the repository variable and edit the [build_all.yml](.github/workflows/build_all.yml) to trigger on push again.
 
 ## Auto Deploy PDF on Discord
-Use a Github Action to automatically compile the project and upload compiled pdf on your discord channel.
+Use a Github Action to automatically compile the project and upload the compiled pdf on your discord channel.
 
 1. Setup Discord
-    - Choose or create channel, where the pdf should be uploaded regularly
+    - In any of your Discord Servers (ideally private Server) choose or create a channel, where the pdf should be uploaded regularly.
     - Go to Edit Channel -> Integrations -> Webhooks -> New Webhook
     - Rename the Webhook to *GitHub* to not get confused
     - Copy the Webhook URL
@@ -205,9 +214,7 @@ Use a Github Action to automatically compile the project and upload compiled pdf
     - Name: `DISCORD_WEBHOOK`
     - Secret: `<paste Webhook URL you copied from discord>`
     - Click Add secret
-3. Execution
-    - The [build.yml](.github/workflows/build.yml) already implements sending the pdf to discord. This step is skipped just skipped if no `DISCORD_WEBHOOK` entry is found.
-    - Once you setup the `DISCROD_WEBHOOK` secret, the Action will already be working: On every push the compiled pdf will be uploaded to your Discord Channel via Webhook.
-        - Note that you still need to go through the [Setup](#setup) (e.g. set the `WORKDIR`)
+
+Both GitHub Actions (`Build all PDF` and `Build single PDF`) are programmed to always upload the PDFs to Discord, if the `DISCORD_WEBHOOK` secret is set. You don't need to configure anything else here.
 
 If you don't want to push to discord anymore, deleting the repository secret is enough.
