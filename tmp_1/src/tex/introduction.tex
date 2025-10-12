@@ -1,0 +1,40 @@
+\chapter{Introduction}
+
+Lorem Ipsum
+
+\section{Example}
+
+Listing \ref{lst:example} is an example listing.
+
+\begin{lstlisting}[
+    caption={Example Listing}, 
+    language={python},
+    label={lst:example}
+]
+def batch_run() -> None:
+    config = ConfigManager()
+    batch_config = config["batch"]
+    model_config = config["model"]
+
+    collector = AverageThroughputBatchDataCollector()
+
+    for i in range(batch_config["simulations"]):
+        logger.info(f"Running model {i + 1} for {batch_config['steps_per_simulation']} steps")
+        logging.disable(level=logging.INFO)
+        model = WarehouseModel(**model_config)
+        collector.add_model(model)
+        for _ in range(batch_config["steps_per_simulation"]):
+            model.step()
+        logging.disable(level=logging.NOTSET)
+
+    collector.save_data()
+\end{lstlisting}
+
+
+\section{Sections}
+
+Example usage of an acronym \gls{reinforcement-learning} and a glossary item \gls{dijkstra}.
+
+\subsection{Galore}
+
+This is an example usage of the \verb|\cite{}| command\cite{turhanlar_autonomous_2024}.

@@ -1,0 +1,167 @@
+% htwstyle.sty — Bilingual Setup for HTW Berlin thesis template
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{htwstyle}[2025/10/08 HTW Berlin Thesis Setup (EN/DE)]
+
+% --------------------------------------------------------------------
+% PACKAGE OPTIONS
+% --------------------------------------------------------------------
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+  family=htw,
+  prefix=htw@
+}
+\DeclareStringOption[de]{language}
+\ProcessKeyvalOptions*
+
+% --------------------------------------------------------------------
+% LANGUAGE HANDLING
+% --------------------------------------------------------------------
+\RequirePackage{ifthen}
+\newboolean{isGerman}
+\ifthenelse{\equal{\htw@language}{de}}{\setboolean{isGerman}{true}}{\setboolean{isGerman}{false}}
+
+\ifthenelse{\boolean{isGerman}}
+  {\RequirePackage[ngerman]{babel}}
+  {\RequirePackage[english]{babel}}
+
+\RequirePackage{csquotes}
+
+% --------------------------------------------------------------------
+% BASIC SETTINGS
+% --------------------------------------------------------------------
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath, amsthm, amssymb}
+\RequirePackage{marvosym}
+\RequirePackage[hyphens]{url}
+\RequirePackage{hyperref}
+\RequirePackage{xcolor}
+\definecolor{HTWgreen}{RGB}{118,185,0}
+\RequirePackage{setspace}
+\RequirePackage{microtype}
+\RequirePackage{parskip}
+\RequirePackage{geometry}
+\RequirePackage{tikz}
+\RequirePackage{booktabs}
+\RequirePackage{enumitem}
+\RequirePackage{subcaption}
+\RequirePackage{array}
+\RequirePackage{wrapfig}
+\RequirePackage{blindtext}
+
+% --------------------------------------------------------------------
+% PAGE GEOMETRY AND LOOK
+% --------------------------------------------------------------------
+\geometry{
+    a4paper,
+    left=25mm,
+    right=25mm,
+    top=25mm,
+    bottom=25mm,
+}
+
+\linespread{1.05}
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
+
+% % --------------------------------------------------------------------
+% % HYPERREF
+% % --------------------------------------------------------------------
+% % in case you want your links with different funny colors
+% \hypersetup{
+%     colorlinks=true,
+%     linkcolor=blue,
+%     citecolor=teal,
+%     urlcolor=magenta,
+% }
+
+% --------------------------------------------------------------------
+% BIBLIOGRAPHY CONFIG (but not the actual file)
+% --------------------------------------------------------------------
+\RequirePackage[
+    backend=biber,
+    % sorting=none,  % comment back in if you want to sort by order of apperiance / default: sort by authors last name
+    style=numeric
+]{biblatex}
+
+\ifthenelse{\boolean{isGerman}}{
+  \DefineBibliographyStrings{ngerman}{
+    andothers = {et\addabbrvspace al\adddot},
+    bibliography = {Quellenverzeichnis},
+  }
+}{
+  \DefineBibliographyStrings{english}{
+    andothers = {et\addabbrvspace al\adddot},
+    bibliography = {References},
+  }
+}
+
+% --------------------------------------------------------------------
+% GLOSSARIES AND ACRONYMS
+% --------------------------------------------------------------------
+\RequirePackage[automake,acronym,toc]{glossaries}
+\makeglossaries
+
+\ifthenelse{\boolean{isGerman}}{
+  \newcommand{\GlossaryTitleMain}{Glossar}
+  \newcommand{\GlossaryTitleAcronyms}{Abkürzungsverzeichnis}
+}{
+  \newcommand{\GlossaryTitleMain}{Glossary}
+  \newcommand{\GlossaryTitleAcronyms}{List of Abbriviations}
+}
+
+\newglossarystyle{tableacronymstyle}{%
+  \setglossarystyle{long}
+  \renewenvironment{theglossary}%
+    {\begin{longtable}{lp{0.75\linewidth}}}%
+    {\end{longtable}}%
+  \renewcommand*{\glossaryheader}{%
+    \bfseries \ifthenelse{\boolean{isGerman}}{Abk. & Bedeutung}{Abbr. & Meaning} \\ \hline\endhead}%
+  \renewcommand*{\glossentry}[2]{%
+    \glsentryshort{##1} & \glsentrylong{##1} \\}%
+}
+
+% --------------------------------------------------------------------
+% LISTINGS
+% --------------------------------------------------------------------
+\RequirePackage{listings}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize,
+  breakatwhitespace=true,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{mygreen},
+  % deletekeywords={...},  % if certain keys should be ignored in chosen programming language
+  escapeinside={\%*}{*)},
+  frame=single,
+  keepspaces=true,
+  keywordstyle=\color{blue},
+  language=Python,
+  mathescape=true,
+  % morekeywords={*,...},  % if certain words should be highlighted as keywords but they aren't by default.
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{mygray},
+  rulecolor=\color{black},
+  % showstringspaces=false,  % if spaces in strings should be turned to underscores
+  stepnumber=1,
+  stringstyle=\color{mymauve},
+  tabsize=2  % change if you want 4 spaces per tab
+}
+
+% --------------------------------------------------------------------
+% INDEX
+% --------------------------------------------------------------------
+\RequirePackage{makeidx}
+\makeindex
+
+% --------------------------------------------------------------------
+% DEFAULT FONTS
+% --------------------------------------------------------------------
+\RequirePackage[sc]{mathpazo}
