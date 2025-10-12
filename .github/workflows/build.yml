@@ -1,18 +1,14 @@
-name: Build PDF
+name: Build single PDF
 
 on:
-  push:
-    branches:
-      - 'main'
-      - 'master'
+  # push:
+  workflow_dispatch:
 
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     env:
-      # Set the root directory of your latex project here:
-      WORKDIR: ./template_beamer1
-      # don't touch
+      WORKDIR: ${{ vars.PROJECT_TO_BUILD }}
       REPOSITORY: ${{ github.repository }}
       REPO_NAME: ${{ github.event.repository.name }}
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -28,12 +24,14 @@ jobs:
           echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
 
       - name: Compile LaTeX document
+        if: ${{ env.WORKDIR != '' }}
         uses: xu-cheng/latex-action@v4
         with:
           root_file: main.tex
           working_directory: ${{ env.WORKDIR }}
 
       - name: Upload PDF file
+        if: ${{ env.WORKDIR != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: PDF
@@ -41,7 +39,7 @@ jobs:
 
 
       - name: Send PDF to Discord
-        if: ${{ env.DISCORD_WEBHOOK != '' }}
+        if: ${{ env.WORKDIR != '' && env.DISCORD_WEBHOOK != '' }}
         env:
           DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
           WORKDIR: ${{ env.WORKDIR }}
@@ -49,9 +47,10 @@ jobs:
           COMMIT_AUTHOR: ${{ steps.commit.outputs.author }}
           REPOSITORY: ${{ env.REPOSITORY }}
           REPO_NAME: ${{ env.REPO_NAME }}
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
-          CONTENT=$(jq -n --arg repo "$REPO_NAME" --arg wdir "$WORKDIR" --arg author "$COMMIT_AUTHOR" --arg msg "$COMMIT_MESSAGE" \
-            '{content: "# 📘 **\($repo)**\n- Built **\($wdir)/main.tex**\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
+          CONTENT=$(jq -n --arg repo "$REPO_NAME" --arg wdir "$WORKDIR" --arg author "$COMMIT_AUTHOR" --arg msg "$COMMIT_MESSAGE" --arg branch "$BRANCH_NAME" \
+            '{content: "# 📘 **\($repo)**\n- Built **\($wdir)/main.tex** from branch `\($branch)`\n🧾 Last Commit by **\($author)**:\n```\n\($msg)\n```"}')
           curl -F "payload_json=${CONTENT}" \
                -F "file=@${WORKDIR}/main.pdf" \
                "$DISCORD_WEBHOOK"
