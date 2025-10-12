@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  discover-and-build:
+  discover:
     runs-on: ubuntu-latest
     outputs:
       projects: ${{ steps.discover.outputs.projects }}
@@ -33,7 +33,7 @@ jobs:
           fi
 
   build:
-    needs: discover-and-build
+    needs: discover
     if: ${{ needs.discover.outputs.has_projects == 'true' }}
     runs-on: ubuntu-latest
     env:
