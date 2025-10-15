@@ -1,0 +1,53 @@
+\documentclass[language=en]{style/htwbeamer}
+
+\bibliography{src/bibliography/custom_bibliography}
+
+
+\title{Title of my Presentation}
+\subtitle{An interesting subtitle}
+\author{Max Mustermann (123456)}
+\institute{Angewandte Informatik} 
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+\begin{frame}{Inhaltsverzeichnis}
+    \tableofcontents
+\end{frame}
+
+\section{Was ist Facebook?}
+\begin{frame}{Überblick}
+    \begin{itemize}
+        \item Soziales Netzwerk
+        \item Gegründet von Mark Zuckerberg
+        \item 4. Februar 2004 \cite{turhanlar_autonomous_2024}
+        \item Verdient Geld durch hauptsächlich durch  Personalisierte Werbung
+        \item Jahresumsatz (2023) - 135 Milliarden US-Dollar \cite{metaumsatz}
+    \end{itemize}
+\end{frame}
+\section{Gründung}
+
+\begin{frame}{Fazit}
+    \begin{itemize}
+        \item Eingriff in Privatsphäre der Nutzer
+        \item Nutzer können gezielt manipuliert werden
+        \item Daten von Nutzern können gestohlen werden \cite{standard_telefon_datenleck, zeit_telefon_datenleck}
+        \item Oft Unklar ob persönliche Daten sicher sind
+        \item Keine Kontrolle über eigene Daten
+        \item Vorfälle \& Leaks führen zu Scam-Calls und Wahlbetrug \cite{meredith2018cambridgeanalytica}
+    \end{itemize}
+\end{frame}
+
+\section{Quellen}
+
+\begin{frame}[allowframebreaks]{\BibTitle}
+    % \bibliographystyle{unsrt}
+    \printbibliography
+\end{frame}
+
+\end{document}
