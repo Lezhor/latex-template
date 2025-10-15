@@ -6,7 +6,7 @@ Additionally GitHub Actions can be configured, to build your LaTeX-Project direc
 ## List of featured templates:
 - `_templates/template_thesis/` - HTW Thesis (the Title Page is given by the HTW and can't be changed)
 - `_templates/template_paper/` - Similar to HTW Thesis but with a custom pretty title page
-- `_templates/template_beamer/` - (coming soon) Presentation with a custom style, matching the HTW style.
+- `_templates/template_beamer/` - Presentation with a custom style, matching the HTW style.
 - `_templates/template_ieee/` - (coming soon) A paper format, ready to be submited to an IEEE-Conference
 
 If you have any suggestions regarding one of the existing templates or have an idea for a new template, feel free to make a Pull Request.
@@ -147,7 +147,7 @@ repository/
 9. Update the titlepage by editing the `main.tex`. Update the values of the titlepage commands (right after `\begin{document}`) to hold the values you want to display on your titlepage.
     - This is an overview of all titlepage-values with the templates that use them and those that don't:
 
-|  | `template_paper` | `template_thesis` | `template_beamer` (coming soon) |
+|  | `template_paper` | `template_thesis` | `template_beamer` |
 |----------|-------------|-------------|------------|
 | `\ititle` | ✔ | ✔ | ✔ |
 | `\idocumenttype` | ✔ | ✔ | ✔ |
