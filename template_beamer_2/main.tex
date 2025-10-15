@@ -1,56 +1,47 @@
 \documentclass[language=en]{style/htwbeamer}
 
+% ----------------------------------------------------------------------
+% Init Bibliography
+% ----------------------------------------------------------------------
 \bibliography{src/bibliography/custom_bibliography}
 
 
 \begin{document}
 
-% --- Titlepage ---
+% ----------------------------------------------------------------------
+% Titlepage Settings
+% ----------------------------------------------------------------------
 \ititle{The Title of my Presentation}
 \idocumenttype{Presentation}
 \iuniversity{Hochschule für Technik und Wirtschaft Berlin}  
 \ifaculty{Fachbereich 4: Informatik, Kommunikation und Wirtschaft}
 \istudyprogramme{Angewandte Informatik}
-\isupervisorone{Prof. Dr. Mustermann}
-\isupervisortwo{Prof. Mustermann}
+\isupervisorone{Prof. Dr. Mustermann}  % unused in beamer
+\isupervisortwo{Prof. Mustermann}  % unused in beamer
 \iauthor{Max Mustermann}
 \imatrnr{123456}
 \idate{\today}
 
 \makeititle
 
-
+% ----------------------------------------------------------------------
+% Table of Contents
+% ----------------------------------------------------------------------
 \begin{frame}{\TableOfContents}
     \tableofcontents
 \end{frame}
 
-\section{Was ist Facebook?}
-\begin{frame}{Überblick}
-    \begin{itemize}
-        \item Soziales Netzwerk
-        \item Gegründet von Mark Zuckerberg
-        \item 4. Februar 2004 \cite{turhanlar_autonomous_2024}
-        \item Verdient Geld durch hauptsächlich durch  Personalisierte Werbung
-        \item Jahresumsatz (2023) - 135 Milliarden US-Dollar \cite{metaumsatz}
-    \end{itemize}
-\end{frame}
-\section{Gründung}
 
 
-\begin{frame}[fragile, allowframebreaks]{Fazit}
-    \begin{lstlisting}[
-        % caption={Example Listing}, 
-        language={python},
-        label={lst:example}
-    ]
-    def batch_run() -> None:
-        config = ConfigManager()
-        tch_config = config["batch"]
-        model_config = config["model"]
-    \end{lstlisting}
+% ----------------------------------------------------------------------
+% Your slides
+% ----------------------------------------------------------------------
+\include{src/tex/example}
 
-\end{frame}
 
+% ----------------------------------------------------------------------
+% Print Bibliography
+% ----------------------------------------------------------------------
 \section{\BibTitle}
 
 \begin{frame}[allowframebreaks]{\BibTitle}

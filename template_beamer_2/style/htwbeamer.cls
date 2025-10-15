@@ -9,13 +9,6 @@
 \ProvidesClass{style/htwbeamer}[2025/10/15 HTW Beamer Class]
 
 % ----------------------------------------------------------------------
-% Load base class (KOMA-Script)
-% ----------------------------------------------------------------------
-\LoadClass[
-  aspectratio=169
-]{beamer}
-
-% ----------------------------------------------------------------------
 % Key-value options for the class
 % ----------------------------------------------------------------------
 \RequirePackage{kvoptions}
@@ -32,16 +25,23 @@
 \newboolean{isGerman}
 \ifthenelse{\equal{\htwbeamer@language}{de}}{\setboolean{isGerman}{true}}{\setboolean{isGerman}{false}}
 
+% ----------------------------------------------------------------------
+% Load base class (KOMA-Script)
+% ----------------------------------------------------------------------
 
+\LoadClass[
+  % handout,
+  aspectratio=169
+]{beamer}
+
+% --------------------------------------------------------------------
+% BASIC SETTINGS
+% --------------------------------------------------------------------
 \ifthenelse{\boolean{isGerman}}
   {\RequirePackage[ngerman]{babel}}
   {\RequirePackage[english]{babel}}
 
 \RequirePackage{csquotes}
-
-% --------------------------------------------------------------------
-% BASIC SETTINGS
-% --------------------------------------------------------------------
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
@@ -57,7 +57,7 @@
 \RequirePackage{geometry}
 \RequirePackage{tikz}
 \RequirePackage{booktabs}
-\RequirePackage{enumitem}
+% \RequirePackage{enumitem}
 \RequirePackage{subcaption}
 \RequirePackage{array}
 \RequirePackage{wrapfig}
@@ -88,6 +88,7 @@
 
 \setbeamertemplate{caption}[numbered]
 
+
 \setbeamertemplate{logo}{
   \vspace{0.2cm} % move up/down
   \includegraphics[width=1cm]{images/htw_logo_notext.jpg}
@@ -96,6 +97,23 @@
 
 \setbeamertemplate{navigation symbols}{} % hides navigation buttons at bottom
 \setbeamertemplate{bibliography item}[text]
+
+% --- Force bullet symbols for itemize lists ---
+% \setbeamertemplate{items}[default]  % restore base template definitions
+% \setbeamertemplate{itemize item}{\raise1pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+% \setbeamertemplate{itemize subitem}{\raise1pt\hbox{\donotcoloroutermaths$\bullet$}}
+% \setbeamertemplate{itemize subsubitem}{\raise1pt\hbox{\donotcoloroutermaths$\blacksquare$}}
+% \setbeamercolor{itemize item}{fg=HTWgreen}
+% \setbeamercolor{itemize subitem}{fg=HTWgreen}
+% \setbeamercolor{itemize subsubitem}{fg=HTWgreen}
+
+
+% \setbeamertemplate{itemize item}[triangle]
+% \setbeamertemplate{itemize subitem}[circle]
+% \setbeamertemplate{itemize subsubitem}[square]
+% \setbeamercolor{itemize item}{fg=HTWgreen}
+% \setbeamercolor{itemize subitem}{fg=HTWgreen}
+% \setbeamercolor{itemize subsubitem}{fg=HTWgreen}
 
 
 % ----------------------------------------------------------------------
@@ -155,7 +173,7 @@
   numbersep=5pt,
   numberstyle=\tiny\color{mygray},
   rulecolor=\color{black},
-  % showstringspaces=false,  % if spaces in strings should be turned to underscores
+  showstringspaces=false,  % if spaces in strings should be turned to underscores
   stepnumber=1,
   stringstyle=\color{mymauve},
   tabsize=2  % change if you want 4 spaces per tab
