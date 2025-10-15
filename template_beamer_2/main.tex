@@ -3,20 +3,24 @@
 \bibliography{src/bibliography/custom_bibliography}
 
 
-\title{Title of my Presentation}
-\subtitle{An interesting subtitle}
-\author{Max Mustermann (123456)}
-\institute{Angewandte Informatik} 
-\date{\today}
-
 \begin{document}
 
-\begin{frame}
-    \titlepage
-\end{frame}
+% --- Titlepage ---
+\ititle{The Title of my Presentation}
+\idocumenttype{Presentation}
+\iuniversity{Hochschule für Technik und Wirtschaft Berlin}  
+\ifaculty{Fachbereich 4: Informatik, Kommunikation und Wirtschaft}
+\istudyprogramme{Angewandte Informatik}
+\isupervisorone{Prof. Dr. Mustermann}
+\isupervisortwo{Prof. Mustermann}
+\iauthor{Max Mustermann}
+\imatrnr{123456}
+\idate{\today}
+
+\makeititle
 
 
-\begin{frame}{Inhaltsverzeichnis}
+\begin{frame}{\TableOfContents}
     \tableofcontents
 \end{frame}
 
@@ -32,18 +36,22 @@
 \end{frame}
 \section{Gründung}
 
-\begin{frame}{Fazit}
-    \begin{itemize}
-        \item Eingriff in Privatsphäre der Nutzer
-        \item Nutzer können gezielt manipuliert werden
-        \item Daten von Nutzern können gestohlen werden \cite{standard_telefon_datenleck, zeit_telefon_datenleck}
-        \item Oft Unklar ob persönliche Daten sicher sind
-        \item Keine Kontrolle über eigene Daten
-        \item Vorfälle \& Leaks führen zu Scam-Calls und Wahlbetrug \cite{meredith2018cambridgeanalytica}
-    \end{itemize}
+
+\begin{frame}[fragile, allowframebreaks]{Fazit}
+    \begin{lstlisting}[
+        % caption={Example Listing}, 
+        language={python},
+        label={lst:example}
+    ]
+    def batch_run() -> None:
+        config = ConfigManager()
+        tch_config = config["batch"]
+        model_config = config["model"]
+    \end{lstlisting}
+
 \end{frame}
 
-\section{Quellen}
+\section{\BibTitle}
 
 \begin{frame}[allowframebreaks]{\BibTitle}
     % \bibliographystyle{unsrt}
