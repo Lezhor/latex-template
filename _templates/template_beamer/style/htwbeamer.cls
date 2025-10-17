@@ -91,7 +91,7 @@
 
 \setbeamertemplate{logo}{
   \vspace{0.2cm} % move up/down
-  \includegraphics[width=1cm]{images/htw_logo_notext.jpg}
+  \includegraphics[width=1cm]{images/htw/htw_logo_notext.jpg}
   \hspace{0.3cm}  % move right/left
 }
 
