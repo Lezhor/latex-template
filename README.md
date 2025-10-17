@@ -173,6 +173,33 @@ repository/
     - the given .sty and .cls files
         - import new packages / see which are imported already.
 
+
+<details>
+  <summary>Subfiles</summary>
+    <ol>
+      <li>Do yourself a favor - Use Subfiles!</li>
+      <li>Each template has an example use of a tex-file in <code>src/tex/</code> which is included in <code>main.tex</code> using <code>\input{src/tex/your_subfile.tex}</code></li>
+      <li>You can also use subfiles inside of subfiles</li>
+    </ol>
+</details>
+
+
+<details>
+  <summary>Bibliography</summary>
+    <ol>
+      <li>Bibfiles are located at <code>src/bibliography/</code></li>
+      <li>Add as many as you want</li>
+      <li>You have to register each one in <code>main.tex</code>, just like the example <code>custom_bibliography.bib</code> file</li>
+      <li>Each Bibitem will have an ID (in the first line of its definition)</li>
+      <li>using this ID you can cite your reference using <code>\cite{bib_id}</code></li>
+      <ul>
+        <li>or use <code>\nocite{bib_id}</code> if you don't want the citation number to appear in text but want to add the reference to the References section (useful for presentations)</li>
+      </ul>
+    </ol>
+</details>
+
+
+
 # CI/CD
 
 You can use the GitHub-Actions located in [.github/workflows/](.github/workflows/) to build your LaTeX Project in the Cloud. See [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord) for uploading the pdf on discord automatically after build.
