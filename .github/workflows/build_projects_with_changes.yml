@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for diffing
+          fetch-depth: 0  # Fetch all history for diffing 
 
       - name: Discover changed LaTeX projects
         id: discover
