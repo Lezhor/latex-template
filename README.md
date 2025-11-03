@@ -112,15 +112,16 @@ PRs are welcome... 😅
 
 # Quickstart (LaTeX Repository)
 1. If you are using this Template for the first time, you will need to complete the [Environment Setup Section](#environment-setup) first before continuing with this section.
-2. Create a new GitHub repository, using this repository as a Template.
+2. Star this Template Repository on GitHub, so that you don't have to look for it if you need to create a new project. :)
+3. Create a new GitHub repository, using this repository as a Template.
     - On the repository home page click on `Use this template` in the top right corner.
     - You will be able to have multiple latex Projects inside a single repository, so in some cases one Repo is enough for all your projects.
-3. Clone your new Repository to the OS where the TexLive Server is running
+4. Clone your new Repository to the OS where the TexLive Server is running
     - On Windows this will be your WSL. Open the WSL Terminal and run `git clone github/link_to_your_repo.git` in a workdirectory you want the project to be in (e.g. `~/github/`)
-4. Open the Repository in Visual Studio Code
-5. Choose a template from the `_templates` folder, you want to use for your project. 
+5. Open the Repository in Visual Studio Code
+6. Choose a template from the `_templates` folder, you want to use for your project. 
     - See [List of featured templates](#list-of-featured-templates) for an overview of each template in this repo
-6. Copy your chosen template to the root of the repo and rename it.
+7. Copy your chosen template to the root of the repo and rename it.
     - In VS-Code you can Ctrl + Drag the desired template folder to the root of your repository to copy it.
     - Your filestructure should look like this now:
 ```
@@ -138,14 +139,14 @@ repository/
 ├─ LICENSE
 ├─ README.md
 ```
-7. Build the `main.tex` file
+8. Build the `main.tex` file
     - If you installed the Latex Workshop Extension correctly, a green play button shoult appear in the top right corner of the screen, whenever you open the `main.tex` of the project you just copied.
     - Press it
     - If you did everything correctly a `main.pdf` file should appear in the same folder as the `main.tex`
     - Either open the `main.pdf` in split view or pin the according Tab in VS-Code, since you will need to view it often.
     - Whenever you edit and save the `main.tex` (or any subfile which is included in the `main.tex`) the project rebuilds automatically and you should see the changes in the `main.pdf` after a couple of seconds.
-8. Choose the Language by changing `language=en` to `language=de` (or vice verca) in the first line of `main.tex`
-9. Update the titlepage by editing the `main.tex`. Update the values of the titlepage commands (right after `\begin{document}`) to hold the values you want to display on your titlepage.
+9. Choose the Language by changing `language=en` to `language=de` (or vice verca) in the first line of `main.tex`
+10. Update the titlepage by editing the `main.tex`. Update the values of the titlepage commands (right after `\begin{document}`) to hold the values you want to display on your titlepage.
     - This is an overview of all titlepage-values with the templates that use them and those that don't:
 
 |  | `template_paper` | `template_thesis` | `template_beamer` |
