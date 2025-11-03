@@ -225,7 +225,7 @@ repository/
 
 # CI/CD
 
-You can use the GitHub-Actions located in [.github/workflows/](.github/workflows/) to build your LaTeX Project in the Cloud. See [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord) for uploading the pdf on discord automatically after build.
+You can use the GitHub-Actions located in [.github/workflows/](.github/workflows/) to build your LaTeX Project in the Cloud. See [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord) for uploading the pdf on discord automatically after build. 
 
 ## Build Latex with GitHub Actions
 
