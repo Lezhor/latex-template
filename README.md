@@ -230,28 +230,13 @@ You can use the GitHub-Actions located in [.github/workflows/](.github/workflows
 ## Build Latex with GitHub Actions
 
 There are two GitHub Actions, both of which are located in [.github/workflows/](.github/workflows/):
-- `Build all PDF` (finds and builds all projects in the root folder)
-- `Build single PDF` (configure, which project to build)
+- `Build projects with changes` (Builds all projects with incoming changes)
+  - Triggered on each push and pr
+  - Builds all projects which where changed in some commit during current push or pull request
+- `Build all projects` (Builds ALL projects in root)
+  - Only manual trigger / go to the Actions tab, select this action and press run.
 
-By default `Build all PDF` is enabled and builds every single project on every `git push`.
-Templates are not built, because only `main.tex` files with exactly one parent folder between them and the root are included.
-The templates have two, since they are in the `_templates` directory, that's why they are ignored.
-
-If you only work with one Latex Project per GitHub-Repository or want the CI/CD Pipeline to build all Projects on every push, you can leave the default behavior and skip the rest of this section.
-
-You can also configure the Actions to only build one project at a time.
-(useful for when you have multiple projects in your repository but only work on one at the same time.)
-1. Disable `Build all PDF`
-    - Either by disabling the Workflow in the GitHub Actions Tab or by commenting line 4 in the [build_all.yml](.github/workflows/build_all.yml), to make it only work on manual trigger (`workflow_dispatch`).
-2. Add a repository variable by going to GitHub -> Settings -> Secrets and variables -> Actions -> Variables -> New repository variable.
-    - The Name should be `PROJECT_TO_BUILD`
-    - The Value should be set to the folder with the latex project you want to build, e.g. if your Latex rootfile's location is `./my_thesis/main.tex`, then the value should be `./my_thesis`. (Note that this variable has to start with `./` but cannot end in `/`)
-3. Edit [build.yml](.github/workflows/build.yml)
-    - Uncomment line 4 to trigger the workflow on every push.
-
-If you want to switch the Project you work on, edit the `PROJECT_TO_BUILD` repository variable.
-
-If you want to switch back to `Build all PDF`, delete the repository variable and edit the [build_all.yml](.github/workflows/build_all.yml) to trigger on push again.
+Both workflows search for `main.tex` files one layer deep in the repository. This is why templates are never built - they are two layers deep (each one is inside `./_templates/`)
 
 ## Auto Deploy PDF on Discord
 Use a Github Action to automatically compile the project and upload the compiled pdf on your discord channel.
@@ -267,6 +252,6 @@ Use a Github Action to automatically compile the project and upload the compiled
     - Secret: `<paste Webhook URL you copied from discord>`
     - Click Add secret
 
-Both GitHub Actions (`Build all PDF` and `Build single PDF`) are programmed to always upload the PDFs to Discord, if the `DISCORD_WEBHOOK` secret is set. You don't need to configure anything else here.
+Both GitHub Actions are programmed to always upload the PDFs to Discord, once the `DISCORD_WEBHOOK` secret is set. You don't need to configure anything else here.
 
 If you don't want to push to discord anymore, deleting the repository secret is enough.
