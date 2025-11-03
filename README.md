@@ -113,6 +113,7 @@ PRs are welcome... 😅
 # Quickstart (LaTeX Repository)
 1. If you are using this Template for the first time, you will need to complete the [Environment Setup Section](#environment-setup) first before continuing with this section.
 2. Create a new GitHub repository, using this repository as a Template.
+    - On the repository home page click on `Use this template` in the top right corner.
     - You will be able to have multiple latex Projects inside a single repository, so in some cases one Repo is enough for all your projects.
 3. Clone your new Repository to the OS where the TexLive Server is running
     - On Windows this will be your WSL. Open the WSL Terminal and run `git clone github/link_to_your_repo.git` in a workdirectory you want the project to be in (e.g. `~/github/`)
