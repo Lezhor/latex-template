@@ -1,7 +1,7 @@
 # latex-template
 A collection of LaTeX Templates, you can use on your local Machine in Visual Studio Code. 
-These templates enable you to compile the Latex Project(s) right inside of Visual Studio Code.
-Additionally GitHub Actions can be configured, to build your LaTeX-Project directly inside the GitHub Cloud (see [CI/CD](#cicd)) and even upload the resulting pdf to a Discord Channel of your choice for convenient access on the go (see [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord)).
+These templates allow you to compile the Latex Project(s) right inside of Visual Studio Code.
+Additionally GitHub Actions can be configured to build your LaTeX-Project directly inside the GitHub Cloud (see [CI/CD](#cicd)) and even upload the resulting pdf to a Discord Channel of your choice for convenient access on the go (see [Auto Deploy PDF on Discord](#auto-deploy-pdf-on-discord)).
 
 ## List of featured templates:
 - `_templates/template_thesis/` - HTW Thesis (the Title Page is given by the HTW and can't be changed)
@@ -161,17 +161,14 @@ repository/
 | `\idate` | ✔ | ✔ | ✔ |
 
 ## Using this Latex Setup
-- #todo
-- Write about how to use:
-    - The filestructure
-    - subfiles
-    - bibfiles
-        - With Zotero
-    - glossaries
-    - acronyms
-    - latex environments (chapter, section etc.)
-    - the given .sty and .cls files
-        - import new packages / see which are imported already.
+<details>
+  <summary>Hidden Files</summary>
+    <ol>
+      <li>Latex uses many intermediate files to build your main.tex</li>
+      <li>All these fileformats (e.g. <code>.aux</code>, <code>.bbl</code>, <code>.log</code>, <code>.lol</code>, <code>.glo</code>, etc.) are ignored by git (see <code>.gitignore</code>) but also are configured to be invsible inside vs-code (see <code>.vscode/settings.json</code>).</li>
+      <li>If for some reason you need to access these files (e.g. the log files etc.) you will need to access them via your file explorer or the terminal</li>
+    </ol>
+</details>
 
 
 <details>
@@ -180,6 +177,8 @@ repository/
       <li>Do yourself a favor - Use Subfiles!</li>
       <li>Each template has an example use of a tex-file in <code>src/tex/</code> which is included in <code>main.tex</code> using <code>\input{src/tex/your_subfile.tex}</code></li>
       <li>You can also use subfiles inside of subfiles</li>
+      <li>While <code>main.tex</code> is located in the projects root, the subfiles should be located in <code>src/tex/</code></li>
+      <li>For a huge project, consider spliting the <code>src/tex/</code> into multiple subfolers (e.g. one for each chapter / topic)</li>
     </ol>
 </details>
 
@@ -198,7 +197,29 @@ repository/
     </ol>
 </details>
 
+<details>
+  <summary>Glossaries and Acronyms</summary>
+    <ol>
+      <li>Define new Acronym in <code>src/acronyms.tex</code> using: <code>\newacronym{reinforcement-learning}{RL}{Reinforcement Learning}</code></li>
+      <li>Define new Glossary Entry in <code>src/glossary.tex</code> using: <code> \newglossaryentry{dijkstra}{ name={Dijkstra}, description={Really cool Graph-Algorithm} } </code></li>
+      <li>use the acronym using <code>\gls{reinforcement-learning}</code></li>
+      <li>use the glossary entry using <code>\gls{dijkstra}</code></li>
+      <li>The acronyms and glossary are configured to be printed at the end of your document.</li>
+    </ol>
+</details>
 
+<details>
+  <summary>Packages</summary>
+    <ol>
+      <li>The packages are imported not in the <code>main.tex</code> but instead in the according <code>.sty</code> files (see <code>style/</code> directory in each template)</li>
+      <li>e.g. see the <code>htwstyle.sty</code></li>
+      <li>The packages are imported using <code>\RequirePackage{my_package}</code></li>
+      <li>You can import new packages like this or remove packages you don't want to use. Configuring the packages is the same in <code>.sty</code> as well as <code>main.tex</code> files.</li>
+      <li>You could also add new packages as usual in the <code>main.tex</code>, but you should use the <code>.sty</code> file instead to keep your <code>main.tex</code> clean</li>
+    </ol>
+</details>
+
+***
 
 # CI/CD
 
@@ -213,6 +234,8 @@ There are two GitHub Actions, both of which are located in [.github/workflows/](
 By default `Build all PDF` is enabled and builds every single project on every `git push`.
 Templates are not built, because only `main.tex` files with exactly one parent folder between them and the root are included.
 The templates have two, since they are in the `_templates` directory, that's why they are ignored.
+
+If you only work with one Latex Project per GitHub-Repository or want the CI/CD Pipeline to build all Projects on every push, you can leave the default behavior and skip the rest of this section.
 
 You can also configure the Actions to only build one project at a time.
 (useful for when you have multiple projects in your repository but only work on one at the same time.)
