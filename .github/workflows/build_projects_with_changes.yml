@@ -1,7 +1,7 @@
-name: Build all projects
+name: Build projects with changes
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   discover:
@@ -13,21 +13,42 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Discover LaTeX projects
+      - name: Discover changed LaTeX projects
         id: discover
         run: |
-          echo "🔍 Searching for LaTeX projects..."
-          projects=$(find . -mindepth 2 -maxdepth 2 -name main.tex -printf '%h\n' || true)
-          projects=$(echo "$projects" | sed '/^\s*$/d')
-          if [ -z "$projects" ]; then
-            echo "⚠️ No LaTeX projects found!"
+          echo "🔍 Finding changed LaTeX projects..."
+
+          # Find changed files (between last and previous commit)
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD || true)
+
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          # Discover all LaTeX project directories containing main.tex
+          ALL_PROJECTS=$(find . -mindepth 2 -maxdepth 2 -name main.tex -printf '%h\n' || true)
+
+          echo "Found LaTeX projects:"
+          echo "$ALL_PROJECTS"
+
+          # Filter only those that have changes
+          CHANGED_PROJECTS=""
+          for proj in $ALL_PROJECTS; do
+            if echo "$CHANGED_FILES" | grep -q "^${proj#./}/"; then
+              CHANGED_PROJECTS+="$proj"$'\n'
+            fi
+          done
+
+          CHANGED_PROJECTS=$(echo "$CHANGED_PROJECTS" | sed '/^\s*$/d' || true)
+
+          if [ -z "$CHANGED_PROJECTS" ]; then
+            echo "⚠️ No LaTeX projects changed."
             echo "projects=[]" >> $GITHUB_OUTPUT
             echo "has_projects=false" >> $GITHUB_OUTPUT
           else
-            echo "✅ Found projects:"
-            echo "$projects"
-            projects_json=$(echo "$projects" | jq -R -s -c 'split("\n")[:-1]')
-            echo "projects=$projects_json" >> $GITHUB_OUTPUT
+            echo "✅ LaTeX projects changed:"
+            echo "$CHANGED_PROJECTS"
+            PROJECTS_JSON=$(echo "$CHANGED_PROJECTS" | jq -R -s -c 'split("\n")[:-1]')
+            echo "projects=$PROJECTS_JSON" >> $GITHUB_OUTPUT
             echo "has_projects=true" >> $GITHUB_OUTPUT
           fi
 
