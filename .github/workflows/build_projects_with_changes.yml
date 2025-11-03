@@ -18,8 +18,14 @@ jobs:
         run: |
           echo "🔍 Finding changed LaTeX projects..."
 
-          # Find changed files (between last and previous commit)
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD || true)
+          # Find changed files
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "Finding changes for PR #${{ github.event.pull_request.number }}"
+            CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} || true)
+          else
+            echo "Finding changes for push event"
+            CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} || true)
+          fi
 
           echo "Changed files:"
           echo "$CHANGED_FILES"
