@@ -75,9 +75,9 @@ Working on a local setup is recomended, e.g. because Overleaf has a limited Buil
   <summary>5) Set up SSH on VM</summary>
     <ol>
       <li>Open the VM Terminal (Open App Debian, Ubuntu, whatever Distro you chose)</li>
-      <li>Run <code>ssh-keygen -t ed25519 -C "your_email@example.com</code> to generate public/private keypair</li>
+      <li>Run <code>ssh-keygen -t ed25519 -C "your_email@example.com"</code> to generate public/private keypair</li>
       <ul><li>When prompted to Enter a passphrase enter a short phrase for verification. Note that you will need to type this phrase EVERY TIME you use your SSH key, aka. on every Push and Pull. If this sounds too annoying you can skip it by leaving the passphrase empty.</li></ul>
-      <li>Run <code>eval "$(ssh-agent -s)</code> to launch the ssh agent</li>
+      <li>Run <code>eval "$(ssh-agent -s)"</code> to launch the ssh agent</li>
       <li>Run <code>ssh-add ~/.ssh/id_ed25519</code> to add the key to your agent.</li>
       <ul><li>Note that you need to add your private key (which has no extension) and not the public key</li>
       <li>The ssh file might have another name. Doublecheck the name in <code>~/.ssh/</code></li></ul>
