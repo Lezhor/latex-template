@@ -20,7 +20,7 @@ Working on a local setup is recomended, e.g. because Overleaf has a limited Buil
 ## Windows
 
 <details>
-  <summary>1) Install Windows Subsystem for Linux (WSL)</summary>
+  <summary>1) Install Windows Subsystem for Linux (WSL) (Click to Expand)</summary>
     <ol>
       <li>Go to Control Panel -> Programs -> Turn Windows feature on or off</li>
       <li>In List of features enable "Virtual Machine Platform" and "Windows Subsystem for Linux"</li>
