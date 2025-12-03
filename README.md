@@ -102,7 +102,7 @@ Working on a local setup is recomended, e.g. because Overleaf has a limited Buil
 ## Linux
 PRs are welcome... 😅
 
-- Prob. TexLive and VS-Code on on same native OS / no need for VM.
+- Prob. TexLive and VS-Code on same native OS / no need for VM.
 
 ## MacOS
 PRs are welcome... 😅
