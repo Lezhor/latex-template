@@ -1,6 +1,6 @@
 % htwstyle.sty — Bilingual Setup for HTW Berlin thesis template
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{htwstyle}[2025/10/08 HTW Berlin Thesis Setup (EN/DE)]
+\ProvidesPackage{style/htwstyle}[2025/10/08 HTW Berlin Thesis Setup (EN/DE)]
 
 % --------------------------------------------------------------------
 % PACKAGE OPTIONS
@@ -24,22 +24,21 @@
   {\RequirePackage[ngerman]{babel}}
   {\RequirePackage[english]{babel}}
 
-\RequirePackage{csquotes}
-
 % --------------------------------------------------------------------
 % BASIC SETTINGS
 % --------------------------------------------------------------------
 \RequirePackage[utf8]{inputenc}
+\RequirePackage{csquotes}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath, amsthm, amssymb}
 \RequirePackage{marvosym}
 \RequirePackage[hyphens]{url}
-\RequirePackage{hyperref}
 \RequirePackage{xcolor}
 \definecolor{HTWgreen}{RGB}{118,185,0}
 \RequirePackage{setspace}
 \RequirePackage{microtype}
+\RequirePackage{hyperref}
 \RequirePackage{parskip}
 \RequirePackage{geometry}
 \RequirePackage{tikz}
@@ -119,7 +118,7 @@
   \renewcommand*{\glossaryheader}{%
     \bfseries \ifthenelse{\boolean{isGerman}}{Abk. & Bedeutung}{Abbr. & Meaning} \\ \hline\endhead}%
   \renewcommand*{\glossentry}[2]{%
-    \glsentryshort{##1} & \glsentrylong{##1} \\}%
+    \glstarget{##1}{\glsentryshort{##1}} & \glsentrylong{##1} \\}%
 }
 
 % --------------------------------------------------------------------
